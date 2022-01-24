@@ -1,13 +1,18 @@
 package com.example.demo.entity;
 
+import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 
@@ -21,9 +26,11 @@ public class Customer {
 	@Size(max=25)
 	@NotBlank(message = "Name is mandatory")
 	@NotEmpty
+	@Pattern(regexp = "^[A-Za-z][A-Za-z\s]+$")
 	private String name;
 	
 	@NotEmpty
+	@Pattern(regexp = "^male$|^female$|^Male$|^Female$")
 	private String gender;
 	
 	@NotEmpty
@@ -33,27 +40,32 @@ public class Customer {
 	@Size(max=50)
 	@NotBlank(message = "Address is mandatory")
 	@NotEmpty
+	@Pattern(regexp = "^[A-Za-z][A-Za-z\s]+$")
 	private String address;
 	
 	@NotNull
 	@Size(max=25)
 	@NotBlank(message = "City is mandatory")
 	@NotEmpty 
+	@Pattern(regexp = "^[A-Za-z][A-Za-z\s]+$")
 	private String city;
 	
 	@NotNull
 	@Size(max=25)
 	@NotBlank(message = "State is mandatory")
 	@NotEmpty
+	@Pattern(regexp = "^[A-Za-z][A-Za-z\s]+$")
 	private String state;
 	
 	@NotNull
 	@Size(max=7)
 	@NotBlank(message = "pin is mandatory")
 	@NotEmpty
+	@Pattern(regexp = "^[1-9][0-9\s]+$")
 	private String pin;
 	
 	@Size(max=15)
+	@Pattern(regexp = "^[0-9]+$")
 	private String phone;
 	
 	@Size(max=15)
@@ -64,6 +76,16 @@ public class Customer {
 	@NotBlank(message = "Email is mandatory")
 	private String email;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="deposit_id", referencedColumnName = "id")
+	Deposit deposit;
+	
+	public Deposit getDeposit() {
+		return deposit;
+	}
+	public void setDeposit(Deposit deposit) {
+		this.deposit = deposit;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -140,5 +162,7 @@ public class Customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	
 	
 }
