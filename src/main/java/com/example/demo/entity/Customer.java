@@ -80,6 +80,26 @@ public class Customer {
 	@JoinColumn(name="deposit_id", referencedColumnName = "id")
 	Deposit deposit;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="account_id", referencedColumnName = "id")
+	Account account;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="enquiryid", referencedColumnName = "enquiry_id")
+	Enquiry enquiry;
+	
+	public Enquiry getEnquiry() {
+		return enquiry;
+	}
+	public void setEnquiry(Enquiry enquiry) {
+		this.enquiry = enquiry;
+	}
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 	public Deposit getDeposit() {
 		return deposit;
 	}
